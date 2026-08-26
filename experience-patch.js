@@ -88,15 +88,15 @@
         The previous node is a small yellow dot above the box.
         During scroll every node travels bottom -> center -> top on the ring.
       */
-      const angle = relative * 68 * Math.PI / 180;
+      const angle = Math.PI - relative * 55 * Math.PI / 180;
       const x = Math.cos(angle) * radiusX;
       const y = Math.sin(angle) * radiusY;
       const abs = Math.abs(relative);
 
       // Text appears only while the node is approaching/occupying the central active position.
-      const copyVisibility = Math.max(0, Math.min(1, 1.35 - abs * 2.4));
-      const scale = Math.max(0.19, 1.72 - Math.min(1, abs) * 1.50);
-      const opacity = abs > 1.12 ? 0 : Math.max(0.4, 1 - abs * 0.28);
+      const copyVisibility = Math.max(0, Math.min(1, 1.15 - abs * 2.8));
+      const scale = Math.max(0.16, 1.68 - Math.min(1, abs) * 1.50);
+      const opacity = abs > 1.08 ? 0 : Math.max(0.82, 1 - abs * 0.12);
 
       node.style.setProperty('--x', `${x}px`);
       node.style.setProperty('--y', `${y}px`);
@@ -181,10 +181,10 @@
       isolation:isolate!important;
     }
 
-    /* Entire mechanical scene is on the right. The circle centre is outside the box on the left side of this scene. */
+    /* The whole circumference is shifted to the far right. Only its left arc enters the composition. */
     .exp-ring-v11{
       position:absolute!important;
-      left:-9%!important;
+      left:96%!important;
       top:50%!important;
       width:1080px!important;
       height:1080px!important;
@@ -197,7 +197,7 @@
 
     .exp-nodes-v11{
       position:absolute!important;
-      left:-9%!important;
+      left:96%!important;
       top:50%!important;
       width:0!important;
       height:0!important;
@@ -253,9 +253,9 @@
     .exp-description-v11{
       position:absolute!important;
       z-index:65!important;
-      left:55%!important;
+      left:58%!important;
       top:50%!important;
-      width:42%!important;
+      width:39%!important;
       transform:translateY(-50%)!important;
     }
 
@@ -296,9 +296,9 @@
         grid-template-columns:38% 62%!important;
         padding:34px!important;
       }
-      .exp-ring-v11,.exp-nodes-v11{left:-20%!important}
+      .exp-ring-v11,.exp-nodes-v11{left:102%!important}
       .exp-ring-v11{width:900px!important;height:900px!important}
-      .exp-description-v11{left:51%!important;width:47%!important}
+      .exp-description-v11{left:59%!important;width:38%!important}
       .exp-description-v11 li{margin-bottom:11px!important;font-size:.79rem!important}
     }
 
@@ -316,12 +316,12 @@
       .exp-left-v11>p{margin:8px 0 10px!important}
       .exp-date-v11{font-size:1.25rem!important}
       .exp-scene-v11{height:440px!important;min-height:440px!important;overflow:hidden!important}
-      .exp-ring-v11,.exp-nodes-v11{left:-18%!important;top:52%!important}
+      .exp-ring-v11,.exp-nodes-v11{left:106%!important;top:52%!important}
       .exp-ring-v11{width:570px!important;height:570px!important}
       .career-node-v11{width:110px!important;height:110px!important}
       .node-copy-v11 strong{font-size:.79rem!important}
       .node-copy-v11 span{font-size:.52rem!important}
-      .exp-description-v11{left:45%!important;top:52%!important;width:53%!important}
+      .exp-description-v11{left:58%!important;top:52%!important;width:40%!important}
       .exp-description-v11 li{margin-bottom:6px!important;padding-left:22px!important;font-size:.67rem!important}
     }
   `;
