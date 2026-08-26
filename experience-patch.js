@@ -83,10 +83,13 @@
     nodes.forEach((node,index)=>{
       const relative=index-stage;
       const distance=Math.abs(relative);
-      // v15 direction: previous above, active center-left point, next below.
-      const angle=Math.PI-relative*55*Math.PI/180;
-      const x=Math.cos(angle)*radius;
-      const y=Math.sin(angle)*radius;
+      // Desktop remains untouched: previous above, active center-left, next below.
+      // Mobile uses a horizontal journey: previous left, active center, next right.
+      const angle = mobile
+        ? (-Math.PI / 2 + relative * 55 * Math.PI / 180)
+        : (Math.PI - relative * 55 * Math.PI / 180);
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
       const visible=distance<=1.02; // only one above + active + one below
       const centerWeight=Math.max(0,1-distance);
       const size=(mobile?54:64)+(mobile?82:186)*centerWeight;
@@ -107,7 +110,32 @@
   .exp16-scene{position:relative;height:100%;min-height:620px;overflow:visible}.exp16-ring{position:absolute;left:96%;top:50%;width:1020px;height:1020px;transform:translate(-50%,-50%);border:2px solid rgba(252,255,131,.34);border-radius:50%}.exp16-nodes{position:absolute;left:96%;top:50%}.exp16-node{--x:-510px;--y:0;--size:64px;position:absolute;width:var(--size);height:var(--size);transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y)));display:grid;place-items:center;border-radius:50%;background:var(--yellow);color:#08101d;text-align:center;box-shadow:0 12px 36px rgba(0,0,0,.24);will-change:transform,width,height,opacity;transition:opacity .08s linear,visibility .08s linear}.exp16-label{padding:14px;opacity:0;visibility:hidden}.exp16-node.active16 .exp16-label{opacity:1;visibility:visible}.exp16-label strong,.exp16-label span{display:block}.exp16-label strong{font-size:1.08rem;line-height:1.1}.exp16-label span{margin-top:7px;font-size:.67rem;line-height:1.2}.exp16-node.active16{box-shadow:0 24px 74px rgba(252,255,131,.23)}
   .exp16-copy{position:absolute;z-index:20;left:58%;top:50%;width:39%;transform:translateY(-50%)}.exp16-copy ul{list-style:none;margin:0;padding:0}.exp16-copy li{position:relative;margin-bottom:18px;padding-left:32px}.exp16-copy li:before{content:'✓';position:absolute;left:0;color:var(--yellow);font-weight:800}.exp16-copy li span{display:block;color:var(--text);font-size:1rem;line-height:1.42}.exp16-copy li em{display:block;margin-top:5px;color:var(--muted);font-size:.74rem;line-height:1.4;font-style:italic}.exp16-copy ul.swap16{animation:swap16 .34s ease}@keyframes swap16{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
   @media(max-width:1100px){.exp16-stage{grid-template-columns:38% 62%;padding:34px}.exp16-ring,.exp16-nodes{left:102%}.exp16-ring{width:820px;height:820px}.exp16-copy{left:59%;width:38%}.exp16-copy li span{font-size:.82rem}.exp16-copy li em{font-size:.67rem}.exp16-dates{grid-template-columns:minmax(105px,1fr) 32px minmax(105px,1fr)}.exp16-date-box{padding:0 8px}}
-  @media(max-width:760px){.experience-story{height:480vh!important}.exp16-stage{top:72px!important;height:calc(100vh - 84px)!important;min-height:720px!important;grid-template-columns:1fr!important;align-content:start!important;padding:22px!important}.exp16-left h2{font-size:1.85rem}.exp16-left>p{margin:8px 0 10px}.exp16-dates{width:100%;grid-template-columns:1fr 28px 1fr}.exp16-date-box{height:46px;font-size:1rem;padding:0 6px}.exp16-arrow{font-size:1.25rem}.exp16-scene{height:440px;min-height:440px;overflow:hidden}.exp16-ring,.exp16-nodes{left:106%;top:52%}.exp16-ring{width:510px;height:510px}.exp16-copy{left:58%;top:52%;width:40%}.exp16-copy li{margin-bottom:8px;padding-left:22px}.exp16-copy li span{font-size:.74rem}.exp16-copy li em{font-size:.61rem;margin-top:3px}}
+  @media(max-width:760px){
+    .experience-story{height:480vh!important}
+    .exp16-stage{top:72px!important;height:calc(100vh - 84px)!important;min-height:720px!important;grid-template-columns:1fr!important;grid-template-rows:auto 1fr!important;align-content:start!important;padding:22px!important}
+    .exp16-left{z-index:40!important}
+    .exp16-left h2{font-size:1.85rem!important;line-height:1.02!important}
+    .exp16-left>p{margin:8px 0 10px!important;font-size:.78rem!important}
+    .exp16-dates{width:100%!important;grid-template-columns:1fr 28px 1fr!important}
+    .exp16-date-box{height:46px!important;font-size:1rem!important;padding:0 6px!important}
+    .exp16-arrow{font-size:1.25rem!important}
+    .exp16-progress{width:100%!important;margin-top:10px!important}
+
+    /* Mobile-only horizontal orbit. The visible upper arc runs left to right. */
+    .exp16-scene{position:relative!important;height:470px!important;min-height:470px!important;overflow:hidden!important;margin-top:4px!important}
+    .exp16-ring,.exp16-nodes{left:50%!important;top:73%!important}
+    .exp16-ring{width:510px!important;height:510px!important}
+    .exp16-node{width:var(--size)!important;height:var(--size)!important}
+    .exp16-label strong{font-size:.8rem!important}
+    .exp16-label span{font-size:.52rem!important}
+
+    /* Description sits below the moving nodes, inside the circumference. */
+    .exp16-copy{left:7%!important;top:56%!important;width:86%!important;transform:none!important;padding:14px 16px!important;border:1px solid rgba(252,255,131,.14)!important;border-radius:14px!important;background:rgba(8,15,28,.74)!important;backdrop-filter:blur(8px)!important}
+    .exp16-copy ul{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}
+    .exp16-copy li{margin:0!important;padding-left:22px!important}
+    .exp16-copy li span{font-size:.72rem!important;line-height:1.3!important}
+    .exp16-copy li em{font-size:.59rem!important;line-height:1.3!important;margin-top:2px!important}
+  }
   `;
   document.head.appendChild(css);
   addEventListener('scroll',render,{passive:true});addEventListener('resize',render);render();
