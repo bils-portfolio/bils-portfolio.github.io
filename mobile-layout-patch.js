@@ -198,3 +198,65 @@
 
   document.head.appendChild(style);
 })();
+
+/* BILS Experience Mobile Position Fix 29
+   Mobile only. Desktop remains untouched. */
+(() => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @media(max-width:760px){
+      /* Keep the approved title/date block exactly at the top. */
+      .experience-story{
+        height:330vh!important;
+      }
+
+      .exp16-stage{
+        top:8px!important;
+        height:calc(100vh - 16px)!important;
+        min-height:555px!important;
+        max-height:700px!important;
+        grid-template-rows:auto 245px!important;
+        align-content:start!important;
+        padding:20px!important;
+        padding-bottom:10px!important;
+        overflow:hidden!important;
+      }
+
+      /* Move the complete circle/node scene downward, not the heading/date area. */
+      .exp16-scene{
+        position:relative!important;
+        height:245px!important;
+        min-height:245px!important;
+        margin-top:38px!important;
+        overflow:hidden!important;
+      }
+
+      .exp16-ring,
+      .exp16-nodes{
+        left:50%!important;
+        top:88%!important;
+      }
+
+      .exp16-ring{
+        width:420px!important;
+        height:420px!important;
+      }
+
+      /* Keep the three animated nodes above the ring and fully visible. */
+      .exp16-nodes{
+        z-index:6!important;
+      }
+
+      .exp16-node{
+        z-index:7!important;
+      }
+
+      /* Descriptions stay hidden on mobile. */
+      .exp16-copy,
+      .exp-right{
+        display:none!important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();
