@@ -2,11 +2,11 @@
    Loaded after app.js. Replaces only the Experience mechanism. */
 (() => {
   const experiences = [
-    { date:'09/2017 - Oggi', company:'Abitare Co.', role:'Senior Graphic & Digital Designer', items:['Identita visiva per iniziative immobiliari, brochure, capitolati e presentazioni commerciali.','Video emozionali, teaser, siti web e landing page per i lanci commerciali.','Post-produzione di fotografie, immagini e render 3D per digitale e stampa.','Tool digitali interni per automatizzare attivita e migliorare i flussi del marketing.','Comunicazione visiva di showroom e uffici vendita: dresswall, pannelli e vetrofanie.'] },
-    { date:'06/2017 - 08/2017', company:'Gruppo Mondadori', role:'Graphic Designer Editoriale', items:['Post-produzione fotografica e correzione colore.','Controllo tecnico-editoriale dei contenuti.','Preparazione definitiva dei materiali prima dell invio allo stampatore.'] },
-    { date:'04/2014 - 06/2017', company:'Casa.it', role:'Creative Designer', items:['Campagne display e banner statici, dinamici e HTML5.','DEM e contenuti promozionali personalizzati.','Produzione e pubblicazione con Adobe Creative Cloud, Google Web Designer e DoubleClick for Publishers.'] },
-    { date:'09/2012 - 03/2014', company:'Link S.p.A.', role:'Consulente Grafico', items:['Impaginazione e aggiornamento del catalogo aziendale.','Post-produzione delle immagini di prodotto.','Creazione di materiali grafici promozionali.'] },
-    { date:'06/2012 - 09/2012', company:'RCS MediaGroup', role:'Operatore Grafico', items:['Impaginazione editoriale.','Ritocco fotografico.','Adattamento di copertine per le testate del gruppo.'] }
+    { date:'09/2017 - Oggi', company:'Abitare Co.', role:'Senior Graphic & Digital Designer', items:[{it:'Identita visiva per iniziative immobiliari, brochure, capitolati e presentazioni commerciali.',en:'Visual identity for real estate developments, brochures, specifications and sales presentations.'},{it:'Video emozionali, teaser, siti web e landing page per i lanci commerciali.',en:'Emotional videos, teasers, websites and landing pages for commercial launches.'},{it:'Post-produzione di fotografie, immagini e render 3D per digitale e stampa.',en:'Post-production of photography, images and 3D renders for digital and print.'},{it:'Tool digitali interni per automatizzare attivita e migliorare i flussi del marketing.',en:'Internal digital tools to automate tasks and improve marketing workflows.'},{it:'Comunicazione visiva di showroom e uffici vendita: dresswall, pannelli e vetrofanie.',en:'Visual communication for showrooms and sales offices: dress walls, panels and window graphics.'}] },
+    { date:'06/2017 - 08/2017', company:'Gruppo Mondadori', role:'Graphic Designer Editoriale', items:[{it:'Post-produzione fotografica e correzione colore.',en:'Photography post-production and color correction.'},{it:'Controllo tecnico-editoriale dei contenuti.',en:'Technical and editorial content review.'},{it:'Preparazione definitiva dei materiali prima dell invio allo stampatore.',en:'Final preparation of materials before delivery to the printer.'}] },
+    { date:'04/2014 - 06/2017', company:'Casa.it', role:'Creative Designer', items:[{it:'Campagne display e banner statici, dinamici e HTML5.',en:'Display campaigns and static, dynamic and HTML5 banners.'},{it:'DEM e contenuti promozionali personalizzati.',en:'Email marketing and customized promotional content.'},{it:'Produzione e pubblicazione con Adobe Creative Cloud, Google Web Designer e DoubleClick for Publishers.',en:'Production and publishing with Adobe Creative Cloud, Google Web Designer and DoubleClick for Publishers.'}] },
+    { date:'09/2012 - 03/2014', company:'Link S.p.A.', role:'Consulente Grafico', items:[{it:'Impaginazione e aggiornamento del catalogo aziendale.',en:'Layout and updating of the company catalog.'},{it:'Post-produzione delle immagini di prodotto.',en:'Post-production of product imagery.'},{it:'Creazione di materiali grafici promozionali.',en:'Creation of promotional graphic materials.'}] },
+    { date:'06/2012 - 09/2012', company:'RCS MediaGroup', role:'Operatore Grafico', items:[{it:'Impaginazione editoriale.',en:'Editorial layout and page design.'},{it:'Ritocco fotografico.',en:'Professional photo retouching.'},{it:'Adattamento di copertine per le testate del gruppo.',en:'Cover adaptations for the group publications.'}] }
   ];
 
   const story = document.querySelector('.experience-story');
@@ -62,7 +62,7 @@
     const item = experiences[index];
     scrambleDate(item.date);
     listEl.classList.remove('swap-v11');
-    listEl.innerHTML = item.items.map(text => `<li>${text}</li>`).join('');
+    listEl.innerHTML = item.items.map(text => `<li><span class="exp-it-v13">${text.it}</span><em class="exp-en-v13">${text.en}</em></li>`).join('');
     requestAnimationFrame(() => listEl.classList.add('swap-v11'));
   }
 
@@ -77,7 +77,7 @@
 
     const mobile = matchMedia('(max-width:760px)').matches;
     const radiusX = mobile ? 285 : 540;
-    const radiusY = mobile ? 260 : 465;
+    const radiusY = mobile ? 285 : 540;
 
     nodes.forEach((node, nodeIndex) => {
       const relative = nodeIndex - stageFloat;
@@ -274,6 +274,9 @@
       line-height:1.42!important;
     }
 
+    .exp-it-v13{display:block!important;font-size:1rem!important;line-height:1.42!important;font-style:normal!important;color:var(--text)!important}
+    .exp-en-v13{display:block!important;margin-top:5px!important;font-size:.74rem!important;line-height:1.4!important;font-style:italic!important;color:var(--muted)!important}
+
     .exp-description-v11 li:before{
       content:'✓';
       position:absolute;
@@ -322,7 +325,7 @@
       .node-copy-v11 strong{font-size:.79rem!important}
       .node-copy-v11 span{font-size:.52rem!important}
       .exp-description-v11{left:58%!important;top:52%!important;width:40%!important}
-      .exp-description-v11 li{margin-bottom:6px!important;padding-left:22px!important;font-size:.67rem!important}
+      .exp-description-v11 li{margin-bottom:8px!important;padding-left:22px!important}.exp-it-v13{font-size:.74rem!important}.exp-en-v13{font-size:.61rem!important;margin-top:3px!important}
     }
   `;
 
