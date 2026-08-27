@@ -343,31 +343,67 @@
   document.head.appendChild(style);
 })();
 
-/* BILS Experience Mobile Gap Fix 32
+/* BILS Experience Mobile Flow Fix 33
    Mobile only. Desktop remains unchanged.
-   Keeps the approved V30 Experience graphics and removes only the visual gap below the card. */
+   Removes overlap and keeps the following section naturally attached. */
 (() => {
   const style = document.createElement('style');
   style.textContent = `
     @media(max-width:760px){
-      /* Keep enough scroll runway for all five Experience steps. */
+      /* Keep enough runway for the five experience states. */
       .experience-story{
-        height:225vh!important;
+        height:300vh!important;
         margin-bottom:0!important;
+        padding-bottom:0!important;
       }
 
-      /* Pull the following Tools section upward by exactly the unused viewport
-         area below the 560px sticky Experience card. */
-      .post-experience{
+      /* The sticky card fills the mobile viewport, so no page background
+         appears beneath it while the Experience sequence is running. */
+      .exp16-stage{
+        top:8px!important;
+        height:calc(100svh - 16px)!important;
+        min-height:560px!important;
+        max-height:none!important;
+        grid-template-rows:auto 260px!important;
+        align-content:start!important;
+        padding:20px!important;
+        padding-bottom:12px!important;
+        overflow:hidden!important;
+      }
+
+      /* Keep the already-approved date and orbit layout. */
+      .exp16-scene{
         position:relative!important;
-        z-index:2!important;
-        margin-top:calc(-100vh + 570px)!important;
+        height:260px!important;
+        min-height:260px!important;
+        margin-top:44px!important;
+        overflow:hidden!important;
       }
 
-      @media(max-height:700px){
-        .post-experience{
-          margin-top:0!important;
-        }
+      .exp16-ring,
+      .exp16-nodes{
+        left:50%!important;
+        top:calc(100% + 110px)!important;
+      }
+
+      .exp16-ring{
+        width:510px!important;
+        height:510px!important;
+        z-index:1!important;
+      }
+
+      .exp16-nodes{z-index:4!important}
+      .exp16-node{z-index:5!important}
+      .exp16-copy,.exp-right{display:none!important}
+
+      /* Critical fix: the next section returns to normal document flow.
+         No negative margin, no overlap, no absolute pull-up. */
+      .post-experience{
+        position:static!important;
+        z-index:auto!important;
+        transform:none!important;
+        margin-top:10px!important;
+        margin-bottom:0!important;
       }
     }
   `;
