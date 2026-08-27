@@ -320,3 +320,25 @@
   `;
   document.head.appendChild(style);
 })();
+
+/* BILS Experience Mobile Gap Fix 31
+   Mobile only. Desktop remains unchanged.
+   Removes the long empty scroll tail after the last experience. */
+(() => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @media(max-width:760px){
+      /* Shorter scroll runway: all five steps remain, but the next section
+         reaches the Experience card immediately after the final step. */
+      .experience-story{
+        height:225vh!important;
+        margin-bottom:0!important;
+      }
+
+      .post-experience{
+        margin-top:10px!important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();
