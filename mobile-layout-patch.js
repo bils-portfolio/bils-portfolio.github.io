@@ -342,3 +342,34 @@
   `;
   document.head.appendChild(style);
 })();
+
+/* BILS Experience Mobile Gap Fix 32
+   Mobile only. Desktop remains unchanged.
+   Keeps the approved V30 Experience graphics and removes only the visual gap below the card. */
+(() => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @media(max-width:760px){
+      /* Keep enough scroll runway for all five Experience steps. */
+      .experience-story{
+        height:225vh!important;
+        margin-bottom:0!important;
+      }
+
+      /* Pull the following Tools section upward by exactly the unused viewport
+         area below the 560px sticky Experience card. */
+      .post-experience{
+        position:relative!important;
+        z-index:2!important;
+        margin-top:calc(-100vh + 570px)!important;
+      }
+
+      @media(max-height:700px){
+        .post-experience{
+          margin-top:0!important;
+        }
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();
