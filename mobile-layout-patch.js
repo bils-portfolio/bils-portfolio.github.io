@@ -260,3 +260,63 @@
   `;
   document.head.appendChild(style);
 })();
+
+/* BILS Experience Mobile Bottom Alignment Fix 30
+   Mobile only. Desktop remains unchanged.
+   This final override supersedes the v28/v29 Experience mobile values above. */
+(() => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @media(max-width:760px){
+      /* Reduce the section from the bottom, keeping heading and dates untouched. */
+      .experience-story{
+        height:315vh!important;
+      }
+
+      .exp16-stage{
+        top:8px!important;
+        height:560px!important;
+        min-height:560px!important;
+        max-height:560px!important;
+        grid-template-rows:auto 260px!important;
+        align-content:start!important;
+        padding:20px!important;
+        padding-bottom:8px!important;
+        overflow:hidden!important;
+      }
+
+      /* The complete orbit block starts lower, underneath the date divider. */
+      .exp16-scene{
+        position:relative!important;
+        height:260px!important;
+        min-height:260px!important;
+        margin-top:44px!important;
+        overflow:hidden!important;
+      }
+
+      /* JS uses a 255px mobile radius, so the visible ring must be 510px too.
+         Ring and nodes now share exactly the same center and radius. */
+      .exp16-ring,
+      .exp16-nodes{
+        left:50%!important;
+        top:calc(100% + 110px)!important;
+      }
+
+      .exp16-ring{
+        width:510px!important;
+        height:510px!important;
+      }
+
+      /* Keep the active and neighbour circles above the ring stroke. */
+      .exp16-ring{z-index:1!important}
+      .exp16-nodes{z-index:4!important}
+      .exp16-node{z-index:5!important}
+
+      .exp16-copy,
+      .exp-right{
+        display:none!important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();
