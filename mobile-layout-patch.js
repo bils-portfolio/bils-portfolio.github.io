@@ -260,4 +260,3 @@
   `;
   document.head.appendChild(style);
 })();
-// rebuild pages v29
