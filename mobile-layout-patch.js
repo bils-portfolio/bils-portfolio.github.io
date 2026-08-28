@@ -410,29 +410,60 @@
   document.head.appendChild(style);
 })();
 
-/* BILS Experience Mobile Order Update 34
+/* BILS Experience Mobile Compact Final Fix 35
    Mobile only. Desktop remains unchanged.
-   Reorders the existing Experience scene above the date controls without changing animations. */
+   Compact Experience card, orbit before dates, and Tools joins only at the end. */
 (() => {
+  const mobile = matchMedia('(max-width:760px)');
+  const story = document.querySelector('.experience-story');
+  const nextSection = document.querySelector('.post-experience');
+
+  function updateMobileFlow() {
+    if (!mobile.matches || !story || !nextSection) return;
+
+    const rect = story.getBoundingClientRect();
+    const travel = Math.max(1, story.offsetHeight - innerHeight);
+    const progress = Math.max(0, Math.min(1, -rect.top / travel));
+
+    /* Tools stays in normal flow throughout the five steps.
+       It moves into the unused lower viewport only during the final 8%. */
+    const stageHeight = 520;
+    const availableGap = Math.max(0, innerHeight - stageHeight - 26);
+    const finalProgress = Math.max(0, Math.min(1, (progress - .92) / .08));
+    const pull = availableGap * finalProgress;
+
+    nextSection.style.setProperty('--experience-final-pull', `${pull}px`);
+  }
+
+  addEventListener('scroll', updateMobileFlow, { passive:true });
+  addEventListener('resize', updateMobileFlow);
+  updateMobileFlow();
+
   const style = document.createElement('style');
   style.textContent = `
     @media(max-width:760px){
-      /* Use a compact grid: title, orbit, then dates. */
+      .experience-story{
+        height:250vh!important;
+        margin-bottom:0!important;
+        padding-bottom:0!important;
+      }
+
+      /* Compact card, reduced only from the bottom. */
       .exp16-stage{
-        height:calc(100svh - 16px)!important;
-        min-height:560px!important;
-        max-height:none!important;
+        top:8px!important;
+        height:520px!important;
+        min-height:520px!important;
+        max-height:520px!important;
         display:grid!important;
         grid-template-columns:1fr!important;
-        grid-template-rows:auto 255px!important;
+        grid-template-rows:auto 205px auto auto!important;
         align-content:start!important;
-        padding:20px!important;
+        padding:18px!important;
         padding-bottom:12px!important;
         overflow:hidden!important;
       }
 
-      /* Flatten the left wrapper so heading and date controls can be reordered
-         together with the separate orbit scene. */
+      /* Reorder existing elements without changing their animations. */
       .exp16-left{
         display:contents!important;
       }
@@ -441,43 +472,53 @@
         grid-column:1!important;
         grid-row:1!important;
         margin:0!important;
+        font-size:clamp(1.72rem,7.8vw,2.05rem)!important;
+        line-height:1.01!important;
       }
 
       .exp16-left > p{
         grid-column:1!important;
         grid-row:1!important;
         align-self:end!important;
-        margin:118px 0 0!important;
+        margin:108px 0 0!important;
+        font-size:.7rem!important;
+        line-height:1.28!important;
       }
 
-      /* Orbit comes before dates on mobile. */
       .exp16-scene{
         grid-column:1!important;
         grid-row:2!important;
         position:relative!important;
-        height:255px!important;
-        min-height:255px!important;
-        margin-top:22px!important;
+        height:205px!important;
+        min-height:205px!important;
+        margin-top:12px!important;
         overflow:hidden!important;
       }
 
       .exp16-ring,
       .exp16-nodes{
         left:50%!important;
-        top:calc(100% + 96px)!important;
+        top:calc(100% + 105px)!important;
       }
 
       .exp16-ring{
         width:510px!important;
         height:510px!important;
+        z-index:1!important;
       }
 
-      /* Dates move below the orbit scene, matching the supplied reference. */
+      .exp16-nodes{z-index:4!important}
+      .exp16-node{z-index:5!important}
+
       .exp16-dates{
         grid-column:1!important;
         grid-row:3!important;
         width:100%!important;
-        margin-top:26px!important;
+        margin-top:12px!important;
+      }
+
+      .exp16-date-box{
+        height:42px!important;
       }
 
       .exp16-progress{
@@ -490,6 +531,24 @@
       .exp16-copy,
       .exp-right{
         display:none!important;
+      }
+
+      /* No permanent negative margin and no overlap during the sequence. */
+      .post-experience{
+        position:relative!important;
+        z-index:2!important;
+        margin-top:10px!important;
+        margin-bottom:0!important;
+        transform:translateY(calc(-1 * var(--experience-final-pull, 0px)))!important;
+        transition:transform .08s linear!important;
+      }
+    }
+
+    @media(max-width:760px) and (max-height:620px){
+      .exp16-stage{
+        height:500px!important;
+        min-height:500px!important;
+        max-height:500px!important;
       }
     }
   `;
