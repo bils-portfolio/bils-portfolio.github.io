@@ -526,3 +526,112 @@
   `;
   document.head.appendChild(style);
 })();
+
+/* BILS Experience Mobile Final Compact Flow 37
+   Mobile only. Desktop remains unchanged.
+   Experience and Tools are separate cards in natural flow, never overlapping. */
+(() => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @media(max-width:760px){
+      /* Parent supplies the five-step scroll runway. When the sticky sequence
+         ends, the Experience card exits naturally and Tools follows below. */
+      .experience-story{
+        position:relative!important;
+        height:245vh!important;
+        margin:0 auto!important;
+        padding:0!important;
+        overflow:visible!important;
+      }
+
+      .exp16-stage{
+        position:sticky!important;
+        top:8px!important;
+        height:520px!important;
+        min-height:520px!important;
+        max-height:520px!important;
+        display:grid!important;
+        grid-template-columns:1fr!important;
+        grid-template-rows:auto 205px auto auto!important;
+        align-content:start!important;
+        padding:18px!important;
+        padding-bottom:12px!important;
+        overflow:hidden!important;
+        transform:none!important;
+      }
+
+      .exp16-left{display:contents!important}
+
+      .exp16-left h2{
+        grid-column:1!important;
+        grid-row:1!important;
+        margin:0!important;
+        font-size:clamp(1.72rem,7.8vw,2.05rem)!important;
+        line-height:1.01!important;
+      }
+
+      .exp16-left > p{
+        grid-column:1!important;
+        grid-row:1!important;
+        align-self:end!important;
+        margin:108px 0 0!important;
+        font-size:.7rem!important;
+        line-height:1.28!important;
+      }
+
+      .exp16-scene{
+        grid-column:1!important;
+        grid-row:2!important;
+        position:relative!important;
+        height:205px!important;
+        min-height:205px!important;
+        margin-top:12px!important;
+        overflow:hidden!important;
+      }
+
+      .exp16-ring,.exp16-nodes{
+        left:50%!important;
+        top:calc(100% + 105px)!important;
+      }
+
+      .exp16-ring{
+        width:510px!important;
+        height:510px!important;
+        z-index:1!important;
+      }
+
+      .exp16-nodes{z-index:4!important}
+      .exp16-node{z-index:5!important}
+
+      .exp16-dates{
+        grid-column:1!important;
+        grid-row:3!important;
+        width:100%!important;
+        margin-top:12px!important;
+      }
+
+      .exp16-date-box{height:42px!important}
+
+      .exp16-progress{
+        grid-column:1!important;
+        grid-row:4!important;
+        width:100%!important;
+        margin-top:8px!important;
+      }
+
+      .exp16-copy,.exp-right{display:none!important}
+
+      /* Tools is always below Experience in ordinary document flow. */
+      .post-experience{
+        position:relative!important;
+        inset:auto!important;
+        z-index:auto!important;
+        transform:none!important;
+        translate:none!important;
+        margin:10px auto 0!important;
+        padding:0!important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();
