@@ -410,46 +410,26 @@
   document.head.appendChild(style);
 })();
 
-/* BILS Experience Mobile Compact Final Fix 35
+/* BILS Experience Mobile Natural Flow Fix 36
    Mobile only. Desktop remains unchanged.
-   Compact Experience card, orbit before dates, and Tools joins only at the end. */
+   Experience and Tools stay as two separate adjacent cards with no overlap. */
 (() => {
-  const mobile = matchMedia('(max-width:760px)');
-  const story = document.querySelector('.experience-story');
-  const nextSection = document.querySelector('.post-experience');
-
-  function updateMobileFlow() {
-    if (!mobile.matches || !story || !nextSection) return;
-
-    const rect = story.getBoundingClientRect();
-    const travel = Math.max(1, story.offsetHeight - innerHeight);
-    const progress = Math.max(0, Math.min(1, -rect.top / travel));
-
-    /* Tools stays in normal flow throughout the five steps.
-       It moves into the unused lower viewport only during the final 8%. */
-    const stageHeight = 520;
-    const availableGap = Math.max(0, innerHeight - stageHeight - 26);
-    const finalProgress = Math.max(0, Math.min(1, (progress - .92) / .08));
-    const pull = availableGap * finalProgress;
-
-    nextSection.style.setProperty('--experience-final-pull', `${pull}px`);
-  }
-
-  addEventListener('scroll', updateMobileFlow, { passive:true });
-  addEventListener('resize', updateMobileFlow);
-  updateMobileFlow();
-
   const style = document.createElement('style');
   style.textContent = `
     @media(max-width:760px){
+      /* Keep the five-step scroll sequence, then release the sticky card
+         naturally before the Tools section begins. */
       .experience-story{
+        position:relative!important;
         height:250vh!important;
         margin-bottom:0!important;
         padding-bottom:0!important;
+        overflow:visible!important;
       }
 
-      /* Compact card, reduced only from the bottom. */
+      /* Compact Experience card based on the approved reference. */
       .exp16-stage{
+        position:sticky!important;
         top:8px!important;
         height:520px!important;
         min-height:520px!important;
@@ -463,7 +443,6 @@
         overflow:hidden!important;
       }
 
-      /* Reorder existing elements without changing their animations. */
       .exp16-left{
         display:contents!important;
       }
@@ -533,22 +512,15 @@
         display:none!important;
       }
 
-      /* No permanent negative margin and no overlap during the sequence. */
+      /* Tools always remains in normal document flow.
+         No transform, negative margin or pull-up at any scroll position. */
       .post-experience{
         position:relative!important;
-        z-index:2!important;
+        z-index:auto!important;
+        transform:none!important;
+        translate:none!important;
         margin-top:10px!important;
         margin-bottom:0!important;
-        transform:translateY(calc(-1 * var(--experience-final-pull, 0px)))!important;
-        transition:transform .08s linear!important;
-      }
-    }
-
-    @media(max-width:760px) and (max-height:620px){
-      .exp16-stage{
-        height:500px!important;
-        min-height:500px!important;
-        max-height:500px!important;
       }
     }
   `;
