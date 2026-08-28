@@ -409,3 +409,89 @@
   `;
   document.head.appendChild(style);
 })();
+
+/* BILS Experience Mobile Order Update 34
+   Mobile only. Desktop remains unchanged.
+   Reorders the existing Experience scene above the date controls without changing animations. */
+(() => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @media(max-width:760px){
+      /* Use a compact grid: title, orbit, then dates. */
+      .exp16-stage{
+        height:calc(100svh - 16px)!important;
+        min-height:560px!important;
+        max-height:none!important;
+        display:grid!important;
+        grid-template-columns:1fr!important;
+        grid-template-rows:auto 255px!important;
+        align-content:start!important;
+        padding:20px!important;
+        padding-bottom:12px!important;
+        overflow:hidden!important;
+      }
+
+      /* Flatten the left wrapper so heading and date controls can be reordered
+         together with the separate orbit scene. */
+      .exp16-left{
+        display:contents!important;
+      }
+
+      .exp16-left h2{
+        grid-column:1!important;
+        grid-row:1!important;
+        margin:0!important;
+      }
+
+      .exp16-left > p{
+        grid-column:1!important;
+        grid-row:1!important;
+        align-self:end!important;
+        margin:118px 0 0!important;
+      }
+
+      /* Orbit comes before dates on mobile. */
+      .exp16-scene{
+        grid-column:1!important;
+        grid-row:2!important;
+        position:relative!important;
+        height:255px!important;
+        min-height:255px!important;
+        margin-top:22px!important;
+        overflow:hidden!important;
+      }
+
+      .exp16-ring,
+      .exp16-nodes{
+        left:50%!important;
+        top:calc(100% + 96px)!important;
+      }
+
+      .exp16-ring{
+        width:510px!important;
+        height:510px!important;
+      }
+
+      /* Dates move below the orbit scene, matching the supplied reference. */
+      .exp16-dates{
+        grid-column:1!important;
+        grid-row:3!important;
+        width:100%!important;
+        margin-top:26px!important;
+      }
+
+      .exp16-progress{
+        grid-column:1!important;
+        grid-row:4!important;
+        width:100%!important;
+        margin-top:8px!important;
+      }
+
+      .exp16-copy,
+      .exp-right{
+        display:none!important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();
